@@ -18,7 +18,7 @@ Compute the integral
 This seems to be a popular problem illustrating various mathematical techniques. The standard approach is to use complex analysis and the [Cauchy method of residues](https://en.wikipedia.org/wiki/Residue_theorem). The problem may be solved with more elementary techniques by using a series of [clever substitutions](https://www.youtube.com/watch?v=CIRGU-Zc9h4&feature=share). Both approaches rely on quite lengthy computations to obtain the answer
 
 $$
-I =  \pi \frac {\sqrt(2)} 4.
+I =  \pi \frac {\sqrt 2} 4.
 $$
 
 Here, we would like to show that the answer may be obtained quite easily in the form of power series.
