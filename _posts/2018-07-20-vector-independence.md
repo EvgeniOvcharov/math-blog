@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Are two random vectors independent if their components are pairwise independent?"
-date:   2018-08-20 23:52:33 +0300
+date:   2018-07-20 23:52:33 +0300
 categories: maths
 ---
 
