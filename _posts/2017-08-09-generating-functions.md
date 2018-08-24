@@ -9,7 +9,7 @@ categories: maths
 
 ### Introduction
 
-Often in mathematics we have to deal with recurrence relations. One of the best known examples of recurrence relations are the *Fibonacci numbers* given by the relation
+Often in mathematics we have to deal with recurrence relations. One of the best known examples of recurrence relations is the *Fibonacci numbers* given by the relation
 
 $$
 {\displaystyle F_{n}=F_{n-1}+F_{n-2}},
@@ -29,7 +29,7 @@ S_{n+1} = S_n + X, \quad S_0 = 0, \quad n = 0,1, \dots,
 \end{equation}
 $$
 
-where $X$ is a random variable taking with equal probability any value from a given set of natural numbers $\mathcal X = \\{n_1, n_2, ..., n_m\\}$. Let $p_k$ be the probability that the sequence $S_n$ will contain a given number $k$. Determine $p_k$ asymptotically in the form $p_k = \pi + o(1)$, where $\pi = \pi(\mathcal X)$ should be given explicitly.
+where $X$ is a random variable taking any value with equal probability from a given set of natural numbers $\mathcal X = \\{n_1, n_2, ..., n_m\\}$. Let $p_k$ be the probability that the sequence $S_n$ will contain a given number $k$. Determine $p_k$ asymptotically in the form $p_k = \pi + o(1)$, where $\pi = \pi(\mathcal X)$ should be given explicitly.
 <!--
 show that $p_N$ is in the form $p_N = p + o(1)$ for some $p\in[0,1]$ and some $o(1)$ as $N\rightarrow\infty$, and find $p$.
 -->
@@ -42,13 +42,13 @@ $$
    p_n = \frac 2 3 + \frac {(-1)^n }{2^{n} 3},
 $$
 
-for $n\geq 1$, see below. Indeed, for $n=1$ the formula gives $p_1 = 1/2$, which is correct as we may reach $n=1$ starting from $n=0$ only if $X=1$. For $n=2$ the formula gives $p_2 = 3/4$. This is also correct as all possible pairs of values of $X$ are: $(1,1)$, $(1,2)$, $(2,1)$, and $(2,2)$. Of these, only the pair $(1,2)$ misses $n=2$ starting from $n=0$. Hence $n=2$ can be reached in 3 out of 4 ways, or $p_2=3/4$. We may continue computing $p_3$, $p_4$, ... in this way, however, at some point we should realize that there is a recurrence relation between the probabilities $p_n$, $p_{n-1}$, $p_{n-2}$ given by
+for $n\geq 1$, see below. Indeed, for $n=1$ the formula gives $p_1 = 1/2$, which is correct as we may reach $n=1$ starting from $n=0$ only if $X=1$. For $n=2$ the formula gives $p_2 = 3/4$. This is also correct as all possible pairs of values of $X$ are: $(1,1)$, $(1,2)$, $(2,1)$, and $(2,2)$. Of these, only the pair $(1,2)$ misses $n=2$ starting from $n=0$. Hence $n=2$ can be reached in 3 out of 4 ways, or $p_2=3/4$. We may continue computing $p_3$, $p_4$, $\dots$ seeking for a pattern. And such a pattern readily emerges in the form of a recurrence relation between the probabilities $p_n$, $p_{n-1}$, $p_{n-2}$ given by
 
 $$
 p_n = \frac{p_{n-1} + p_{n-2}} 2.
 $$
 
-Indeed, the sequence may reach the number $n$ only if it undergoes the following two transitions with regard to its previous state: either from $n-1$ to $n$ or from $n-2$ to $n$. The first transition happens with probability $p_{n-1}/2$ and the second transition happens with probability $p_{n-2}/2$.
+Indeed, the sequence may reach the number $n$ only if it undergoes the following two transitions with regard to its previous state: either from $n-1$ to $n$ or from $n-2$ to $n$. The first transition happens with probability $p_{n-1}/2$ and the second transition happens with probability $p_{n-2}/2$. The reader may notice that this recurrence relation looks similarly to the Fibonacci recurrence relation, however, the generated sequences have vastly different asymptotic properties.
 
 Before we begin with the solution, we need to revise some basic facts.
 
@@ -66,7 +66,7 @@ that defines the $n$-th term in a number sequence $x_n$ in terms of the $k$ prev
 
 ### Characteristic polynomial
 
-The simplest recurrence relation is the first-order relation $x_n = r x_{n-1}$, $x_0=a$. Its solution is immediately seen to be $x_n=ar^n$. Looking for solutions of the general $k$-th order relation $\eqref{eq: general k}$ in the same form, leads us to consider the roots of the *characteristic polynomial*
+The simplest recurrence relation is the first-order relation $x_n = r x_{n-1}$, $x_0=a$. Its solution is immediately seen to be $x_n=ar^n$. Looking for solutions of the general $k$-th order relation $\eqref{eq: general k}$ in the same form leads us to consider the roots of the *characteristic polynomial*
 
 $$
 \begin{equation}\label{eq: char}
@@ -74,7 +74,7 @@ $$
 \end{equation}
 $$
 
-of the recurrence relation $\eqref{eq: general k}$. The distinct roots $r_i$ of that polynomial induce solutions of the recurrence relation in the form $x_n = a_i r_i^n$, where $a_i$ are some constants. If $r$ is a repeated root of multiplicity $l$, then the solutions corresponding to that root have the form
+of the recurrence relation $\eqref{eq: general k}$. The distinct roots $r_i$ of that polynomial induce solutions of the recurrence relation in the form $x_n = a_i r_i^n$, where $a_i$ are some constants. If $r$ is a repeated root of multiplicity $l$, then the solutions corresponding to that root have the general form
 
 $$
    x_n = a_0 r^n + a_1 n r^n + \cdots a_{l-1} n^{l-1} r^n,
@@ -84,7 +84,7 @@ for some constants $a_0$, $\dots$, $a_{l-1}$. Since any polynomial of degree $k$
 
 ### Generating functions
 
-Sometimes finding the roots of the characteristic polynomial explicitly may not be feasible, especially if the polynomial is of degree higher than 2. Suppose, for example, that we want to show that a sequence $x_n$ generated by $\eqref{eq: general k}$ converges to some limit $L$ as $n\rightarrow \infty$, which we want to find explicitly. Such a limit would exist in the first place only if all the roots of $\eqref{eq: char}$ are in absolute value less than one, possibly with the exception of one root of multiplicity one which may be equal to one. If this is the case, $x_n$ would be of the form $x_n = L + o(1)$, where by $o(1)$ we have denoted terms which tend to zero as $n\rightarrow\infty$. Determining $L$ from the initial conditions, however, might require obtaining the general form of the solution, which may be difficult or impossible without approximation. In this case, the method of *generating functions* is indispensable.
+Sometimes finding the roots of the characteristic polynomial explicitly may not be feasible, especially if the polynomial is of degree higher than 2. Suppose, for example, that we want to show that a sequence $x_n$ generated by $\eqref{eq: general k}$ converges to some limit $L$ as $n\rightarrow \infty$. Such a limit would exist in the first place only if all the roots of $\eqref{eq: char}$ are in absolute value less than one, possibly with the exception of one root of multiplicity one which may be equal to one. If this is the case, $x_n$ would be of the form $x_n = L + o(1)$, where by $o(1)$ we have denoted terms which tend to zero as $n\rightarrow\infty$. Determining $L$ from the initial conditions, however, might be a nontrivial task as obtaining all the roots of the characteristic polynomial explicitly cannot be done easily for degrees higher than two. In this case, the method of *generating functions* is indispensable.
 
 The *generating function* of a number sequence $a_n$ is a function of the form
 
@@ -92,13 +92,18 @@ $$
  G(a_n;x)=\sum_{n=0}^\infty a_nx^n.
 $$
 
-If $a_n=p_n$ is the probability mass function of a discrete random variable $X$ taking values in the non-negative integers $\{0,1, ...\}$, then its generating function is called the *probability generating function* of $X$. Using the probability generating function of $X$, we may compute the expectation of $X$ in terms of the formula
+If $a_n=p_n$ is the probability mass function of a discrete random variable $X$ taking values in the non-negative integers $\{0,1, ...\}$, then its generating function is called the *probability generating function* of $X$.
+
+
+<!---
+Using the probability generating function of $X$, we may compute the expectation of $X$ in terms of the formula
 
 $$
 \operatorname E X = \sum_{n=0}^\infty n p_n = \lim_{x\rightarrow 1^{-}}\sum_{n=0}^\infty n p_nx^n = G'(p_n;1^-).
 $$
 
 The existence of the limit, either finite or infinite, is guaranteed by Abel's theorem. Generating functions are intimately related to other concepts from probability theory such as the moment generating function and the characteristic function of a random variable, but we shall not pursue this matter any further here.
+-->
 
 Generating functions were first introduced by Abraham de Moivre in 1730 to study recurrence relations like $\eqref{eq: general k}$. Generating functions were extensively applied by Euler to study combinatorial and number theory problems in the 1750's. The name generating function was coined by Laplace in connection to what is now known as the Laplace transform and the moment generating function of a random variable.
 
@@ -173,6 +178,7 @@ $$
 
 where $a_{-1}, \dots, a_{-m}$ are all set to zero.
 
+<!---
 Differentiation and integration of generating functions yields the following identities:
 
 $$
@@ -182,6 +188,7 @@ xG^{\prime }(a_n;x)      &=\sum _{n\geq 0}n a_{n}x^{n}\\
 \int _{0}^{x}G(a_n;t)dt        &=\sum _{n\geq 1}{\frac {a_{n-1}}{n}}x^{n}.
 \end{aligned}}}
 $$
+-->
 
 ### Solution of the problem
 
@@ -195,13 +202,13 @@ $$
 \end{equation}
 $$
 
-for $n\geq1$. Here, $p_0=1$ is the starting point, and we use the notation $p_n=0$, for $n<0$. Let $g(x) = p_0 + p_1 x + p_2 x^2 + \cdots$ be the generating function of the sequence $p_n$. Then we have the identity
+for $n \geq n_m$. The values of $p_0, p_1, \dots, p_{n_m-1}$ represent the initial conditions of the recurrence relation, fully determining the corresponding sequence. These conditions are given by $p_0 = 1$ and by $\eqref{eq: p_n}$ for $n = 1, \dots, n_{m}-1$ by defining $p_n=0$, for $n<0$. If $g(x) = p_0 + p_1 x + p_2 x^2 + \cdots$ is the generating function of the sequence $p_n$, then we have the identity
 
 $$
-   m (g(x) - 1) = x^{n_1}g(x) + x^{n_{2}}g(x) + \cdots + x^{n_m}g(x).
+   g(x) = \frac{x^{n_1}g(x) + x^{n_{2}}g(x) + \cdots + x^{n_m}g(x)} m +1.
 $$
 
-Indeed, this follows immediately from $\eqref{eq: p_n}$ for all $p_n$ with $n \geq 1$, while for $n=0$ we keep in mind that we have set $p_0=1$. Solving for $g$, we obtain
+Indeed, this follows immediately from $\eqref{eq: p_n}$ for all $p_n$ with $n \geq 1$. Since $p_n$ does not satisfy $\eqref{eq: p_n}$ only for $n=0$, we need to make a simple correction for it. Solving for $g$, we obtain
 
 $$
 \begin{equation}\label{eq: g}
@@ -209,7 +216,7 @@ $$
 \end{equation}
 $$
 
-where $s(x)=(x^{n_{1}} + x^{n_{2}} \cdots + x^{n_m}) / m$ is the probability generating function of the random variable $X$.
+where apparently $s(x)=(x^{n_{1}} + x^{n_{2}} \cdots + x^{n_m}) / m$ is the probability generating function of the random variable $X$.
 
 We continue by noticing that $g(x)$ has a unique pole at $x=1$. If we can show that
 
@@ -217,9 +224,7 @@ $$
    g(x) = \frac {C} {1 - x} + f(x),
 $$
 
-where $C$ is a suitable constant and $f(x)$ is analytic around $x=1$, then it would follow that $p_n = C + o(1)$ as $n\rightarrow\infty$. Indeed, the Taylor coefficients of analytic functions around $x=1$ must tend to zero as $n\rightarrow\infty$.
-
-Expanding the function $1-s(x)$ in a Taylor series around $x=1$, we obtain
+where $C$ is a suitable constant and $f(x)$ is analytic around $x=1$, then it would follow that $p_n = C + o(1)$ as $n\rightarrow\infty$. Indeed, the Taylor coefficients of analytic functions around $x=1$ must tend to zero as $n\rightarrow\infty$. Expanding the function $1-s(x)$ in a Taylor series around $x=1$, we obtain
 
 $$
   1 - s(x) = -\mu(x-1) - \mu (x-1)^2 r(x),
