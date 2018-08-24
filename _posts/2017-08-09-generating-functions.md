@@ -253,10 +253,10 @@ $$
 Its roots are $1$ and $-1/2$. We see that $p_n$ is in the form $\displaystyle{p_n = 1^n a  + (-1)^n{2^{-n}}b}$, where $a$ and $b$ are some constants to be determined. We have
 
 $$
-\begin{align}
+\begin{align*}
   p_0 &= a + b= 1\\
   p_1 &= a - b/2= 1/2.
-\end{align}
+\end{align*}
 $$
 
 From here $a=2/3$, $b=1/3$. Thus, we obtain
