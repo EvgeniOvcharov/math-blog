@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Complete Convergence and the Borel-Cantelli Lema"
+title:  "Complete Convergence and the Borel-Cantelli Lemma"
 date:   2018-08-24
 categories: maths
 ---
