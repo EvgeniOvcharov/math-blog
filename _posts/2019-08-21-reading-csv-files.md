@@ -39,7 +39,7 @@ table = NULL
 for (file in files)
   table = rbind(table, read.csv(file, encoding = "UTF-8"))
 ```
-This is the least effective solution, where we simply append each data frame sequentially to an empty `data.frame` object. At each step R stores the resulting data frame at some new address in the memory, which results in copying the earlier data multiple times.
+This is the least effective solution, where we simply append each data frame sequentially to an empty `data.frame` object. At each step R stores the resulting data frame at some new address in the memory, which results in copying the earlier data frames multiple times.
 
 
 ####2. Making a single call to `rbind()` and passing all data frames as a list of arguments
@@ -81,7 +81,7 @@ The class `data.table` is a modern and much optimized analogue to the older and 
 
 ### Comparison of running times
 
-We have benchmarked the relative efficacy of each approach and the results are given in the table below.
+We have benchmarked the relative efficiency of each approach and the results are given in the table below.
 
 <table class="table" style="margin-left: auto; margin-right: auto;">
  <thead>
@@ -89,8 +89,8 @@ We have benchmarked the relative efficacy of each approach and the results are g
    <th style="text-align:left;"> test </th>
    <th style="text-align:right;"> replications </th>
    <th style="text-align:right;"> elapsed </th>
-   <th style="text-align:right;"> user.self </th>
-   <th style="text-align:right;"> sys.self </th>
+   <th style="text-align:right;"> user </th>
+   <th style="text-align:right;"> system </th>
   </tr>
  </thead>
 <tbody>
@@ -125,4 +125,4 @@ We have benchmarked the relative efficacy of each approach and the results are g
 </tbody>
 </table>
 
-The approach based on `fread()` is by far superior in terms of speed than its alternatives. Interestingly, `rbindlist()` is not faster than using `do.call()` when working with elements of the `data.table` class. Another side remark would be that the package [`readr`](https://github.com/tidyverse/readr), recently developed by Hadley Wickham as a part of the [R tidyverse](https://www.tidyverse.org/packages/), addresses many of the shortcomings of `read.csv()` and other similar functions from base R. The function `fread()` is still faster than `read_csv()` from `readr`, but not overwhelmingly so.
+The approach based on `fread()` is by far superior in terms of speed than its alternatives. Interestingly, `rbindlist()` is faster than `do.call()` for `data.frame` elements but not for `data.table` ones. Another side remark would be that the function `read_csv()` from the package [`readr`](https://github.com/tidyverse/readr) addresses many of the shortcomings of `read.csv()`. The function `fread()` is still faster than `read_csv()`, but not overwhelmingly so. The package `readr` was recently developed by Hadley Wickham as part of the [R tidyverse](https://www.tidyverse.org/packages/).
