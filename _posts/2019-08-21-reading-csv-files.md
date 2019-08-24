@@ -49,7 +49,7 @@ This is the least efficient solution in which we simply append each data frame s
 table = lapply(files, read.csv) %>% do.call(rbind, .)
 ```
 
-Here we use the fact that the function `rbind()` can simultaneously bind together multiple data frames. Thus, we single-handedly remove the biggest cause of inefficiency in the previous approach. A special feature of R functions like `rbind()` is having a dynamic argument list. The way in R to pass a variable number of arguments to a function is by invoking the method `do.call()`.
+Here we use the fact that the function `rbind()` can simultaneously bind together multiple data frames, which is significantly more efficient than the previous approach. A special feature of R functions like `rbind()` is having a dynamic argument list. The way in R to pass a variable number of arguments to a function is by invoking the method `do.call()`.
 
 
 #### 3. Further optimization with `rbindlist()`
