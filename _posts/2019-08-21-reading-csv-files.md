@@ -68,7 +68,7 @@ col_spec = spec_csv(files[1])
 table = lapply(files, read_csv, col_types = col_spec) %>% rbindlist()
 ```
 
-Another optimization may come from the replacement of `read.csv()` with some of the newer and faster analogues of it. An example of this is the function `read_csv()` from the package `readr`. The function `read_csv()`, however, may be very slow and inefficient if it has to determine the column types of the data very often. To overcome this problem we have first invoked the function `readr::spec_csv()` to automatically set up the columns types before running the rest of the code. 
+Another optimization may come from the replacement of `read.csv()` with some of the newer and faster analogues of it. An example of this is the function `read_csv()` from the package `readr`. The function `read_csv()`, however, may be very slow and inefficient if it has to determine the column types of the data very often. To overcome this problem we have first invoked the function `readr::spec_csv()` to automatically set up the column types before running the rest of the code. 
 
 #### 5. A solution based on the `data.table` package
 
