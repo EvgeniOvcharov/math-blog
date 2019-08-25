@@ -6,7 +6,7 @@ categories: r-programming
 ---
 
 
-Suppose we need to read multiple csv files from disk and combine them into a single `data.frame` or `data.table` object in R. We shall explore five different approaches to that task and determine the most efficient one. First, let us make sure that we know how to answer the following question:
+Comma-separated value (csv) files are one of the most common file formats used in data analysis. Sometimes we need to read multiple csv files from disk and combine them into a single `data.frame` or `data.table` object in R. We shall explore five different approaches to that task and determine the most efficient one. First, let us make sure that we know how to answer the following question:
 
 ### How to list the files in a given directory?
 
@@ -28,9 +28,9 @@ The output is a character vector giving the names of the files matching the sear
 
 ### Examining five approaches
 
-Comma-separated value (csv) files are one of the most common file formats used in data analysis. Occasionally, we need to import multiple csv files, each having many columns (say 10 - 20, or more), which we need to row bind together to produce a single large data frame or data table object. We examine here five different approaches to that task, increasing the efficiency of each consecutive step. 
+The problem we consider here is different from looking for the fastest way to read one large csv file into memory. In our use case we need to import multiple csv files (say 10 or more), each having many columns (say 10 or more), which we need to row bind together to produce a single large data frame or data table object. The approaches we consider increase in efficiency at each consecutive step. 
 
-The variable `files` in the code below is a character vector containing the names of a number of csv files, for example as produced by `list.files()`. Here are the five approaches:
+The variable `files` in the code below is a character vector containing a list with names of csv files, for example as produced by `list.files()`. Here are the five approaches:
 
 #### 1. Sequentially reading and binding all data frames
 
@@ -49,7 +49,7 @@ This is the least efficient solution in which we simply append each data frame s
 table = lapply(files, read.csv) %>% do.call(rbind, .)
 ```
 
-Here we use the fact that the function `rbind()` can simultaneously bind together multiple data frames, which is significantly more efficient than the previous approach. A special feature of R functions like `rbind()` is having a dynamic argument list. The way in R to pass a variable number of arguments to a function is by invoking the method `do.call()`.
+Here we use the fact that the function `rbind()` can simultaneously bind together multiple data frames, which is significantly faster than the previous approach. A special feature of R functions like `rbind()` is having a dynamic argument list. The way in R to pass a variable number of arguments to a function is by invoking the method `do.call()`.
 
 
 #### 3. Further optimization with `rbindlist()`
@@ -68,7 +68,7 @@ col_spec = spec_csv(files[1])
 table = lapply(files, read_csv, col_types = col_spec) %>% rbindlist()
 ```
 
-Another optimization may come from the replacement of `read.csv()` with some of the newer and faster analogues of it. An example of this is the function `read_csv()` from the package `readr`. The function `read_csv()`, however, may be very slow and inefficient if it has to determine the column types of the data very often. To overcome this problem we have first invoked the function `readr::spec_csv()` to automatically set up the column types before running the rest of the code. 
+Another optimization may come from the replacement of `read.csv()` with a faster analogue of it. Such is the function `read_csv()` from the package `readr`. The function `read_csv()`, however, may be very slow and inefficient if it has to determine the column types of the data very often. To overcome this problem we have first invoked `readr::spec_csv()` to automatically set up the column types before running the rest of the code. 
 
 #### 5. A solution based on the `data.table` package
 
@@ -144,4 +144,4 @@ table = lapply(files, fread) %>% do.call(rbind, .)
 ```
  results in marginally faster running times.
 
- * Without specifying the column types in `read_csv()` the function runs very slowly and we get a 4-5 fold decrease in speed. Its default usage, such as in `lapply(files, read_csv)` is not recommended in a set-up similar to ours.
+ * Without specifying the column types in `read_csv()` the function runs very slowly and we get a 4-5 fold reduction in speed. Its default usage, such as in `lapply(files, read_csv)` is not recommended in a set-up like ours.
