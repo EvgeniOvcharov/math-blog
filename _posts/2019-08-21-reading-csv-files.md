@@ -28,9 +28,9 @@ The output is a character vector giving the names of the files matching the sear
 
 ### Examining five approaches
 
-The problem we consider here is different from looking for the fastest way to read one large csv file into memory. In our use case we need to import multiple csv files (say 10 or more), each having many columns (say 10 or more), which we need to row bind together to produce a single large data frame or data table object. The approaches we consider increase in efficiency at each consecutive step. 
+The stated problem is different from looking for the fastest way to read one large csv file into memory. In our use case we need to import multiple csv files (say 10 or more), each having many columns (say 10 or more), which we need to row bind together to produce a single large data frame or data table object. We next list five approaches in increasing order of efficiency.
 
-The variable `files` in the code below is a character vector containing a list with names of csv files, for example as produced by `list.files()`. Here are the five approaches:
+The variable `files` in the code below is a character vector containing a list with names of csv files, for example as produced by `list.files()`. 
 
 #### 1. Sequentially reading and binding all data frames
 
