@@ -39,7 +39,7 @@ table = NULL
 for (file in files)
   table = rbind(table, read.csv(file))
 ```
-This is the least efficient solution in which we simply append each data frame sequentially, starting with an empty `data.frame` object. At each step R stores the resulting data frame at some new address in memory, which results in copying the data of the earlier data frames multiple times.
+This is the least efficient solution in which we simply append each data frame sequentially, starting with an empty `data.frame` object. At each step R stores the intermediate data frame at some new address in memory, which results in copying the data of the earlier data frames multiple times.
 
 
 #### 2. Making a single call to `rbind()` <!-- and passing all data frames as a list of arguments-->
