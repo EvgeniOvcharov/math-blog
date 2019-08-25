@@ -6,7 +6,7 @@ categories: r-programming
 ---
 
 
-Comma-separated value (csv) files are one of the most common file formats used in data analysis. Sometimes we need to read multiple csv files from disk and combine them into a single `data.frame` or `data.table` object in R. We shall explore five different approaches to that task and determine the most efficient one. First, let us make sure that we know how to answer the following question:
+Comma-separated value (csv) files are one of the most common file formats used in data analysis today. Sometimes we need to read multiple csv files from disk and combine them into a single data frame or data table object in R. We shall explore five different approaches to that task and determine the most efficient one. First, let us make sure that we know how to answer the following question:
 
 ### How to list the files in a given directory?
 
@@ -28,9 +28,9 @@ The output is a character vector giving the names of the files matching the sear
 
 ### Examining five approaches
 
-The stated problem is different from looking for the fastest way to read one large csv file into memory. In our use case we need to import multiple csv files (say 10 or more), each having many columns (say 10 or more), which we need to row bind together to produce a single large data frame or data table object. We next list five approaches in increasing order of efficiency.
+The stated problem is different from looking for the fastest way to read one large csv file into memory. In our use case we need to import multiple csv files (say 10 or more), each having many columns (say 10 or more), which we need to row bind together to produce a single large data frame or data table object. We next list five approaches to that task in increasing order of efficiency.
 
-The variable `files` in the code below is a character vector containing a list with names of csv files, for example as produced by `list.files()`. 
+The variable `files` in the code below is a character vector containing a list of names of csv files, for example as produced by `list.files()`. 
 
 #### 1. Sequentially reading and binding all data frames
 
@@ -61,7 +61,7 @@ table = lapply(files, read.csv) %>% rbindlist()
 
 The row binding of multiple data frames and other matrix-like structures with the same column names can be optimized with the function `rbindlist()`, a member of the `data.table` package.
 
-#### 4. A solution based on the new `readr` package
+#### 4. A solution based on the newer `readr` package
 
 ```r
 col_spec = spec_csv(files[1])
