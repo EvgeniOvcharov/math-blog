@@ -10,7 +10,7 @@ Comma-separated value (csv) files are one of the most common file formats used i
 
 ### How to list the files in a given directory?
 
-The function `list.files()` lists all files in a given directory whose names fulfill an optional criterion. An example of its use can be the following:
+The function `list.files()` lists all files in a given directory whose names contain a specific character pattern. An example of its use can be the following:
 
 ```r
 list.files(path = "./csv/", pattern = "^f.*199", full.names = TRUE) 
