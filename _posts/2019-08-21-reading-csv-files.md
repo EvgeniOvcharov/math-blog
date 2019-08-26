@@ -136,7 +136,7 @@ Apart from these results, we also note the following:
 
  * The test involves reading 22 csv files with 15 columns (a mixture of character and integer values) and around 1000 rows each with actual data on international football matches. The elapsed time in the table above is given in seconds for 100 repetitions.
  
-  * The relative performance of the functions `fread()`, `read_csv()` and `read.csv()` under equal conditions may be gleaned from the first three results in the table above.
+ * The relative performance of the functions `fread()`, `read_csv()` and `read.csv()` under equal conditions may be gleaned from the first three results in the table above.
  
  * The method `rbindlist()` is faster than `rbind()` called with `do.call()` for multiple `data.frame` elements, but not for `data.table` ones. So, in fact replacing Solution 5 above with the code
 ```r
