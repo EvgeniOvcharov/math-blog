@@ -25,6 +25,7 @@ github_username:  EvgeniOvcharov
 
 # Build settings
 markdown: kramdown
+remote_theme: thelehhman/plainwhite-jekyll
 theme: plainwhite
 plugins:
   - jekyll-feed
