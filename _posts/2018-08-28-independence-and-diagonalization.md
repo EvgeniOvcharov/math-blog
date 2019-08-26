@@ -5,7 +5,7 @@ date:   2018-08-28
 categories: maths
 ---
 
-Let our probability space $(\Omega, \mathcal B, \lambda)$ be the unit interval $\Omega=[0,1]$ with the Borel subsets $\mathcal B$ and the Lebesgue measure $\lambda$. Is it possible to find an infinite sequence of independent and identically distributed random variables $X_1$, $X_2$, $\dots$ of any given distribution supported on this probability space?
+Let our probability space `$(\Omega, \mathcal B, \lambda)$` be the unit interval `$\Omega=[0,1]$` with the Borel subsets $\mathcal B$ and the Lebesgue measure `$\lambda$`. Is it possible to find an infinite sequence of independent and identically distributed random variables $X_1$, $X_2$, $\dots$ of any given distribution supported on this probability space?
 
 Surprisingly, yes, and the proof relies on a version of Cantor's diagonal argument.
 
@@ -15,11 +15,11 @@ It is sufficient to find a sequence of independent and uniformly distributed ran
 
 In order to apply Cantor's diagonal argument, we first need to write an arbitrary point $a \in [0,1]$ as an infinite binary fraction
 
-$$
+`$$
 \begin{equation*}
 a = 0.\omega_1\omega_2\omega_3\dots, \quad \omega_i \in \{0,1\}.
 \end{equation*}
-$$
+$$`
 
 Intuitively, we need to partition the information about $a$ into an infinite collection of portions and use each portion to construct a new random variable.
 
