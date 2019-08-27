@@ -1,0 +1,138 @@
+I"75<p>Comma-separated value (csv) files are one of the most common file formats used in data analysis today. Sometimes we need to read multiple csv files from disk and combine them into a single data frame or data table object in R. We shall explore five different approaches to that task and determine the most efficient one. First, let us make sure that we know how to answer the following question:</p>
+
+<h3 id="how-to-list-the-files-in-a-given-directory">How to list the files in a given directory?</h3>
+
+<p>The function <code class="highlighter-rouge">list.files()</code> lists all files in a given directory whose names contain a specific character pattern. An example of its use can be the following:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list.files</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"./csv/"</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"^f.*199"</span><span class="p">,</span><span class="w"> </span><span class="n">full.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w"> 
+
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="s2">"./csv/football-results-1998.csv"</span><span class="w"> </span><span class="s2">"./csv/football-results-1999.csv"</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The output is a character vector giving the names of the files matching the search criterion. In our example, we have called the function with the following options:</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">path = "./csv/"</code> the directory path is set to the csv subdirectory of the working directory;</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">pattern = "^f.*199"</code> a <em>regex</em> expression matching strings starting with the character <em>f</em>, followed by an unspecified number of arbitrary characters, followed by <em>199</em>;</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">full.names = TRUE</code> the path is attached to the returned file names.</p>
+  </li>
+</ul>
+
+<h3 id="examining-five-approaches">Examining five approaches</h3>
+
+<p>The stated problem is different from looking for the fastest way to read one large csv file into memory. In our use case we need to import multiple csv files (say 10 or more), each having many columns (say 10 or more), which we need to row bind together to produce a single large data frame or data table object. We next list five approaches to that task in increasing order of efficiency.</p>
+
+<p>The variable <code class="highlighter-rouge">files</code> in the code below is a character vector containing a list of names of csv files, for example as produced by <code class="highlighter-rouge">list.files()</code>.</p>
+
+<h4 id="1-sequentially-reading-and-binding-all-data-frames">1. Sequentially reading and binding all data frames</h4>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NULL</span><span class="w">
+</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">files</span><span class="p">)</span><span class="w">
+  </span><span class="n">table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rbind</span><span class="p">(</span><span class="n">table</span><span class="p">,</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">file</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+<p>This is the least efficient solution in which we simply append each data frame sequentially, starting with an empty <code class="highlighter-rouge">data.frame</code> object. At each step R stores the intermediate data frame at some new address in memory, which results in copying the data of the earlier data frames multiple times.</p>
+
+<h4 id="2-making-a-single-call-to-rbind-">2. Making a single call to <code class="highlighter-rouge">rbind()</code> <!-- and passing all data frames as a list of arguments--></h4>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lapply</span><span class="p">(</span><span class="n">files</span><span class="p">,</span><span class="w"> </span><span class="n">read.csv</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">do.call</span><span class="p">(</span><span class="n">rbind</span><span class="p">,</span><span class="w"> </span><span class="n">.</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Here we use the fact that the function <code class="highlighter-rouge">rbind()</code> can simultaneously bind together multiple data frames, which is significantly faster than the previous approach. A special feature of R functions like <code class="highlighter-rouge">rbind()</code> is having a dynamic argument list. The R way of passing a variable number of arguments to a function is by invoking the method <code class="highlighter-rouge">do.call()</code>.</p>
+
+<h4 id="3-further-optimization-with-rbindlist">3. Further optimization with <code class="highlighter-rouge">rbindlist()</code></h4>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lapply</span><span class="p">(</span><span class="n">files</span><span class="p">,</span><span class="w"> </span><span class="n">read.csv</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">rbindlist</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The row binding of multiple data frames and other matrix-like structures with the same column names can be optimized with the function <code class="highlighter-rouge">rbindlist()</code>, a member of the <code class="highlighter-rouge">data.table</code> package.</p>
+
+<h4 id="4-a-solution-based-on-the-newer-readr-package">4. A solution based on the newer <code class="highlighter-rouge">readr</code> package</h4>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">col_spec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">spec_csv</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="m">1</span><span class="p">])</span><span class="w">
+</span><span class="n">table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lapply</span><span class="p">(</span><span class="n">files</span><span class="p">,</span><span class="w"> </span><span class="n">read_csv</span><span class="p">,</span><span class="w"> </span><span class="n">col_types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">col_spec</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">rbindlist</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Another optimization may come from the replacement of <code class="highlighter-rouge">read.csv()</code> with a faster analogue of it. Such is the function <code class="highlighter-rouge">read_csv()</code> from the package <code class="highlighter-rouge">readr</code>. The function <code class="highlighter-rouge">read_csv()</code>, however, may be very slow and inefficient if it has to determine the column types of the data very often. To overcome this problem we have first invoked <code class="highlighter-rouge">readr::spec_csv()</code> to automatically set up the column types before running the rest of the code.</p>
+
+<h4 id="5-a-solution-based-on-the-datatable-package">5. A solution based on the <code class="highlighter-rouge">data.table</code> package</h4>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lapply</span><span class="p">(</span><span class="n">files</span><span class="p">,</span><span class="w"> </span><span class="n">fread</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">rbindlist</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The package <code class="highlighter-rouge">data.table</code> is a modern and much optimized analogue to the more familiar package <code class="highlighter-rouge">data.frame</code>. The function <code class="highlighter-rouge">fread()</code> from <code class="highlighter-rouge">data.table</code> is designed to read a csv file into a <code class="highlighter-rouge">data.table</code> object. For large csv files it can be an order of magnitude faster than <code class="highlighter-rouge">read.csv()</code>.</p>
+
+<h3 id="comparison-of-running-times">Comparison of running times</h3>
+
+<p>We have benchmarked the relative efficiency of each approach in the table below.</p>
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> test </th>
+   <th style="text-align:right;"> replications </th>
+   <th style="text-align:right;"> elapsed </th>
+   <th style="text-align:right;"> user </th>
+   <th style="text-align:right;"> system </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> fread </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 3.37 </td>
+   <td style="text-align:right;"> 2.84 </td>
+   <td style="text-align:right;"> 0.53 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> read_csv </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 9.02 </td>
+   <td style="text-align:right;"> 5.83 </td>
+   <td style="text-align:right;"> 2.81 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rbindlist </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 16.51 </td>
+   <td style="text-align:right;"> 16.09 </td>
+   <td style="text-align:right;"> 0.42 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> do.call </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 19.48 </td>
+   <td style="text-align:right;"> 19.06 </td>
+   <td style="text-align:right;"> 0.41 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sequential </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 36.83 </td>
+   <td style="text-align:right;"> 36.26 </td>
+   <td style="text-align:right;"> 0.50 </td>
+  </tr>
+</tbody>
+</table>
+
+<p>Apart from these results, we also note the following:</p>
+
+<ul>
+  <li>
+    <p>The test involves reading 22 csv files with 15 columns (a mixture of character and integer values) and around 1000 rows each with actual data on international football matches. The elapsed time in the table above is given in seconds for 100 repetitions.</p>
+  </li>
+  <li>
+    <p>The relative performance of the functions <code class="highlighter-rouge">fread()</code>, <code class="highlighter-rouge">read_csv()</code> and <code class="highlighter-rouge">read.csv()</code> under equal conditions may be gleaned from the first three results in the table above.</p>
+  </li>
+  <li>The method <code class="highlighter-rouge">rbindlist()</code> is faster than <code class="highlighter-rouge">rbind()</code> called with <code class="highlighter-rouge">do.call()</code> for multiple <code class="highlighter-rouge">data.frame</code> elements, but not for <code class="highlighter-rouge">data.table</code> ones. So, in fact replacing Solution 5 above with the code
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lapply</span><span class="p">(</span><span class="n">files</span><span class="p">,</span><span class="w"> </span><span class="n">fread</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">do.call</span><span class="p">(</span><span class="n">rbind</span><span class="p">,</span><span class="w"> </span><span class="n">.</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+    <p>results in marginally faster running times.</p>
+  </li>
+  <li>Without specifying the column types in <code class="highlighter-rouge">read_csv()</code> the function runs very slowly and we get a 4-5 fold reduction in speed. Its default usage, such as in <code class="highlighter-rouge">lapply(files, read_csv)</code> is not recommended in a set-up like ours.</li>
+</ul>
+:ET

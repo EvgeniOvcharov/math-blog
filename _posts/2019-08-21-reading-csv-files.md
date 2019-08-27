@@ -1,4 +1,5 @@
 ---
+layout: post
 title: "Reading multiple csv files in R"
 author: "Evgeni Ovcharov"
 date:   2019-08-24

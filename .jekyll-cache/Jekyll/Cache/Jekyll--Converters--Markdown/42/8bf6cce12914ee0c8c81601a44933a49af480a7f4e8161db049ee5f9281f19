@@ -1,0 +1,42 @@
+I"T<h3 id="problem">Problem</h3>
+<p>Compute the integral</p>
+
+<p>\begin{equation}
+  I = \int_0^\infty \frac 1 {1+x^4} dx.
+\end{equation}</p>
+
+<h3 id="answer">Answer</h3>
+<hr />
+
+<p>This seems to be a popular problem illustrating various mathematical techniques. The standard approach is to use complex analysis and the <a href="https://en.wikipedia.org/wiki/Residue_theorem">Cauchy method of residues</a>. The problem may be solved with more elementary techniques by using a series of <a href="https://www.youtube.com/watch?v=CIRGU-Zc9h4&amp;feature=share">clever substitutions</a>. Both approaches rely on quite lengthy computations to obtain the answer</p>
+
+<script type="math/tex; mode=display">I =  \pi \frac {\sqrt 2} 4.</script>
+
+<p>Here, we would like to show that the answer may be obtained quite easily in the form of power series.</p>
+
+<h3 id="power-series-solution">Power series solution</h3>
+
+<p>We write</p>
+
+<script type="math/tex; mode=display">I = \int_0^1 \frac 1 {1+x^4} dx + \int_1^\infty \frac 1 {1+x^4} dx = I_1 + I_2.</script>
+
+<p>For the first integral we have</p>
+
+<script type="math/tex; mode=display">I_1 = \int_0^1 \sum_{k=0}^\infty (-1)^k x^{4k} dx = \sum_{k=0}^\infty (-1)^k \frac 1 {4k + 1}.</script>
+
+<p>For the second integral we make the substitution $x = 1/y$ and get</p>
+
+<script type="math/tex; mode=display">I_2 = \int_0^1 \frac {y^2} {1+y^4} dy = \int_0^1 \sum_{k=0}^\infty (-1)^k y^{4k + 2} dy = \sum_{k=0}^\infty (-1)^k \frac 1 {4k + 3}.</script>
+
+<p>So the final result is</p>
+
+<script type="math/tex; mode=display">I = \sum_{k=0}^\infty (-1)^k \frac 1 {4k + 1} + \sum_{k=0}^\infty (-1)^k \frac 1 {4k + 3}.</script>
+
+<p>For example, if we take the first few members of each series we obtain the approximation</p>
+
+<script type="math/tex; mode=display">I \approx \left(1 - \frac 1 5 + \frac 1 9 - \frac 1 {13} + \frac 1 {17}\right) + \left(\frac 1 3 - \frac 1 7 + \frac 1 {11} - \frac 1 {15}\right) \approx 1.1077,</script>
+
+<p>whose error is less than $0.003$ of the exact value of $I$.</p>
+
+<p>It would be an interesting exercise to find the sums of the above power series in closed form.</p>
+:ET
