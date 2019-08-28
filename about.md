@@ -10,6 +10,7 @@ permalink: /about/
 My name is Evgeni Ovcharov. I have a Ph.D. in mathematics from the University of Edinburgh in 2009. I have worked as a researcher in Heidelberg University, Germany, 2010 - 2014, the Heidelberg Institue for Theoretical Studies, 2014 - 2015, and the Institute of Mathematics and Informatics at the Bulgarian Academy of Sciences, 2016 - present. I am interested in mathematical statistics, machine learning, r-programming, mathematical modelling in sports, statistical forecasting, financial time series and more...
 </p>
 
+<!--
 {% if jekyll.environment == "production" %}
 <p> production </p>
 {% endif %}
@@ -17,7 +18,7 @@ My name is Evgeni Ovcharov. I have a Ph.D. in mathematics from the University of
 {% if jekyll.environment != "production" %}
 <p> not production </p>
 {% endif %}
-<!--
+
 This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
 
 You can find the source code for Minima at GitHub:
