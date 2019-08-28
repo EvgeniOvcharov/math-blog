@@ -3,6 +3,7 @@ layout: post
 title:  "Unbiasedness and Consistency of the Regression Coefficients"
 date:   2018-08-16
 categories: maths
+tags: [Regression]
 ---
 
 Here we consider the basic asymptotic properties of the coefficient estimators in a simple linear regression. Many readers when first acquainted with the subject stay under the expression that this is a rather tedious and technical matter. In what follows, we would like to show that when approached from the right perspective, the subject becomes rather intuitive and clear.  

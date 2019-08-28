@@ -3,6 +3,7 @@ layout: post
 title:  "Are two random vectors independent if their components are pairwise independent?"
 date:   2018-07-20 23:52:33 +0300
 categories: maths
+tags: [Probability]
 ---
 
 Let $X=(X_1, X_2)$ and $Y=(Y_1, Y_2)$ be two random vectors in $\operatorname{R}^2$. Suppose that $X_i$ and  $Y_j$ are independent for each pair of indices. We have the following questions.

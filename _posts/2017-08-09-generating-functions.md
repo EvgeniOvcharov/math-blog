@@ -3,6 +3,7 @@ layout: post
 title:  "Solving Recurrence Relations with Generating Functions"
 date:   2017-08-09
 categories: maths
+tags: [Probability]
 ---
 
 *``A generating function is a device somewhat similar to a bag. Instead of carrying many little objects detachedly, which could be embarrassing, we put them all in a bag, and then we have only one object to carry, the bag." -- George Polya, Mathematics and plausible reasoning (1954)*

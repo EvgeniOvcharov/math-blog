@@ -4,6 +4,7 @@ title:  "Computing an Integral"
 date:   2018-08-23
 comments: true
 categories: maths
+tags: [Mathematical Analysis]
 ---
 
 ### Problem

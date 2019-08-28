@@ -3,6 +3,7 @@ layout: post
 title:  "Independence and Cantor's Diagonal Argument"
 date:   2018-08-28
 categories: maths
+tags: [Probability]
 ---
 
 Let our probability space $(\Omega, \mathcal B, \lambda)$ be the unit interval $\Omega=[0,1]$ with the Borel subsets $\mathcal B$ and the Lebesgue measure $\lambda$. Is it possible to find an infinite sequence of independent and identically distributed random variables $X_1$, $X_2$, $\dots$ of any given distribution supported on this probability space?

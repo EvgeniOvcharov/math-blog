@@ -3,6 +3,7 @@ layout: post
 title:  "Complete Convergence and the Zero-One Laws"
 date:   2018-08-27
 categories: maths
+tags: [Probability]
 ---
 
 Here we illustrate three of the famous zero-one laws for convergent sequences of random variables. Their names are: the *Borel-Cantelli lemma*, the *second Borel-Cantelli lemma*, and *Kolmogorov's zero-one law*. They are going to help us study the nuances in the relationship between almost sure convergence and complete convergence.

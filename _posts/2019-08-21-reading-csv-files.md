@@ -4,6 +4,7 @@ title: "Reading multiple csv files in R"
 author: "Evgeni Ovcharov"
 date:   2019-08-24
 categories: r-programming
+tags: [Programming in R]
 ---
 
 
@@ -14,7 +15,7 @@ Comma-separated value (csv) files are one of the most common file formats used i
 The function `list.files()` lists all files in a given directory whose names contain a specific character pattern. An example of its use can be the following:
 
 ```r
-list.files(path = "./csv/", pattern = "^f.*199", full.names = TRUE) 
+list.files(path = "./csv/", pattern = "^f.*199", full.names = TRUE)
 
 [1] "./csv/football-results-1998.csv" "./csv/football-results-1999.csv"
 ```
@@ -22,16 +23,16 @@ list.files(path = "./csv/", pattern = "^f.*199", full.names = TRUE)
 The output is a character vector giving the names of the files matching the search criterion. In our example, we have called the function with the following options:
 
   * `path = "./csv/"` the directory path is set to the csv subdirectory of the working directory;
-  
+
   * `pattern = "^f.*199"` a *regex* expression matching strings starting with the character *f*, followed by an unspecified number of arbitrary characters, followed by *199*;
-  
-  * `full.names = TRUE` the path is attached to the returned file names. 
+
+  * `full.names = TRUE` the path is attached to the returned file names.
 
 ### Examining five approaches
 
 The stated problem is different from looking for the fastest way to read one large csv file into memory. In our use case we need to import multiple csv files (say 10 or more), each having many columns (say 10 or more), which we need to row bind together to produce a single large data frame or data table object. We next list five approaches to that task in increasing order of efficiency.
 
-The variable `files` in the code below is a character vector containing a list of names of csv files, for example as produced by `list.files()`. 
+The variable `files` in the code below is a character vector containing a list of names of csv files, for example as produced by `list.files()`.
 
 #### 1. Sequentially reading and binding all data frames
 
@@ -44,7 +45,7 @@ This is the least efficient solution in which we simply append each data frame s
 
 
 #### 2. Making a single call to `rbind()` <!-- and passing all data frames as a list of arguments-->
-  
+
 
 ```r
 table = lapply(files, read.csv) %>% do.call(rbind, .)
@@ -54,7 +55,7 @@ Here we use the fact that the function `rbind()` can simultaneously bind togethe
 
 
 #### 3. Further optimization with `rbindlist()`
-  
+
 
 ```r
 table = lapply(files, read.csv) %>% rbindlist()
@@ -69,7 +70,7 @@ col_spec = spec_csv(files[1])
 table = lapply(files, read_csv, col_types = col_spec) %>% rbindlist()
 ```
 
-Another optimization may come from the replacement of `read.csv()` with a faster analogue of it. Such is the function `read_csv()` from the package `readr`. The function `read_csv()`, however, may be very slow and inefficient if it has to determine the column types of the data very often. To overcome this problem we have first invoked `readr::spec_csv()` to automatically set up the column types before running the rest of the code. 
+Another optimization may come from the replacement of `read.csv()` with a faster analogue of it. Such is the function `read_csv()` from the package `readr`. The function `read_csv()`, however, may be very slow and inefficient if it has to determine the column types of the data very often. To overcome this problem we have first invoked `readr::spec_csv()` to automatically set up the column types before running the rest of the code.
 
 #### 5. A solution based on the `data.table` package
 
@@ -77,7 +78,7 @@ Another optimization may come from the replacement of `read.csv()` with a faster
 table = lapply(files, fread) %>% rbindlist()
 ```
 
-The package `data.table` is a modern and much optimized analogue to the more familiar package `data.frame`. The function `fread()` from `data.table` is designed to read a csv file into a `data.table` object. For large csv files it can be an order of magnitude faster than `read.csv()`. 
+The package `data.table` is a modern and much optimized analogue to the more familiar package `data.frame`. The function `fread()` from `data.table` is designed to read a csv file into a `data.table` object. For large csv files it can be an order of magnitude faster than `read.csv()`.
 
 
 ### Comparison of running times
@@ -136,9 +137,9 @@ We have benchmarked the relative efficiency of each approach in the table below.
 Apart from these results, we also note the following:
 
  * The test involves reading 22 csv files with 15 columns (a mixture of character and integer values) and around 1000 rows each with actual data on international football matches. The elapsed time in the table above is given in seconds for 100 repetitions.
- 
+
  * The relative performance of the functions `fread()`, `read_csv()` and `read.csv()` under equal conditions may be gleaned from the first three results in the table above.
- 
+
  * The method `rbindlist()` is faster than `rbind()` called with `do.call()` for multiple `data.frame` elements, but not for `data.table` ones. So, in fact replacing Solution 5 above with the code
 ```r
 table = lapply(files, fread) %>% do.call(rbind, .)
