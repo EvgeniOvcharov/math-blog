@@ -2,6 +2,7 @@
 layout: post
 title:  "Independence and Cantor's Diagonal Argument"
 date:   2018-08-28
+author: "Evgeni Ovcharov"
 categories: maths
 tags: [Probability]
 ---

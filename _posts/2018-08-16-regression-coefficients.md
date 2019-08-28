@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Unbiasedness and Consistency of the Regression Coefficients"
+author: "Evgeni Ovcharov"
 date:   2018-08-16
 categories: maths
 tags: [Regression]

@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Solving Recurrence Relations with Generating Functions"
+author: "Evgeni Ovcharov"
 date:   2017-08-09
 categories: maths
 tags: [Probability]

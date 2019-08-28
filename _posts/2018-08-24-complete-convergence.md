@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Complete Convergence and the Zero-One Laws"
+author: "Evgeni Ovcharov"
 date:   2018-08-27
 categories: maths
 tags: [Probability]

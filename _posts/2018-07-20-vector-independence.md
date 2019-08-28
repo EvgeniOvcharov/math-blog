@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Are two random vectors independent if their components are pairwise independent?"
+author: "Evgeni Ovcharov"
 date:   2018-07-20 23:52:33 +0300
 categories: maths
 tags: [Probability]
