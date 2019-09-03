@@ -2,7 +2,7 @@ title: Blog on Mathematical Statistics and Machine Learning
 author: Evgeni Ovcharov
 email: trulr6@yahoo.com
 description: "R-programming, probability and statistics, machine learning"
-show_excerpts: false # set to true to show excerpts on the homepage
+show_excerpts: true # set to true to show excerpts on the homepage
 
 baseurl: "/math-blog" # the subpath of your site, e.g. /blog
 url: "https://evgeniovcharov.github.io"
