@@ -9,21 +9,19 @@
     {%- include google-analytics.html -%}
   {%- endif -%}
 
-  <script type="text/javascript"
-          src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  <script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    }
+  };
   </script>
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      TeX: {
-        equationNumbers: {
-          autoNumber: "AMS"
-        }
-      },
-      tex2jax: {
-        inlineMath: [ ['$','$'] ],
-        displayMath: [ ['$$','$$'] ],
-        processEscapes: true,
-      }
-    });
+  
+  <script id = "MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+  </script>
+
+  <script type = "text/x-mathjax-config">
+    MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});
   </script>
 </head>
